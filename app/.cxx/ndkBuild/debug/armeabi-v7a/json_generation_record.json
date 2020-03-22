@@ -2,19 +2,91 @@
   {
     "level": "INFO",
     "message": "Start JSON generation. Platform version: 21 min SDK version: armeabi-v7a",
-    "file": "/home/mijotchi/AndroidStudioProjects/aapt-10.0-release/app/jni/Android.mk",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
     "tag": "debug|armeabi-v7a"
   },
   {
     "level": "INFO",
-    "message": "JSON \u0027/home/mijotchi/AndroidStudioProjects/aapt-10.0-release/app/.cxx/ndkBuild/debug/armeabi-v7a/android_gradle_build.json\u0027 was up-to-date",
-    "file": "/home/mijotchi/AndroidStudioProjects/aapt-10.0-release/app/jni/Android.mk",
+    "message": "rebuilding JSON /home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a/android_gradle_build.json due to:",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- expected json /home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a/android_gradle_build.json file is not present, will remove stale json folder",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- missing previous command file /home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a/build_command.txt, will remove stale json folder",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- command changed from previous, will remove stale json folder",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "removing stale contents from \u0027/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a\u0027",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "created folder \u0027/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a\u0027",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "executing ndkBuild Executable : /home/mijotchi/Android/Sdk/ndk/21.0.6113669/ndk-build\narguments : \nNDK_PROJECT_PATH\u003dnull\nAPP_BUILD_SCRIPT\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk\nNDK_APPLICATION_MK\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Application.mk\nAPP_ABI\u003darmeabi-v7a\nNDK_ALL_ABIS\u003darmeabi-v7a\nNDK_DEBUG\u003d1\nAPP_PLATFORM\u003dandroid-21\nNDK_OUT\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build/intermediates/ndkBuild/debug/obj\nNDK_LIBS_OUT\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build/intermediates/ndkBuild/debug/lib\nAPP_SHORT_COMMANDS\u003dfalse\nLOCAL_SHORT_COMMANDS\u003dfalse\n-B\n-n\njvmArgs : \n\n",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "Executable : /home/mijotchi/Android/Sdk/ndk/21.0.6113669/ndk-build\narguments : \nNDK_PROJECT_PATH\u003dnull\nAPP_BUILD_SCRIPT\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk\nNDK_APPLICATION_MK\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Application.mk\nAPP_ABI\u003darmeabi-v7a\nNDK_ALL_ABIS\u003darmeabi-v7a\nNDK_DEBUG\u003d1\nAPP_PLATFORM\u003dandroid-21\nNDK_OUT\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build/intermediates/ndkBuild/debug/obj\nNDK_LIBS_OUT\u003d/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build/intermediates/ndkBuild/debug/lib\nAPP_SHORT_COMMANDS\u003dfalse\nLOCAL_SHORT_COMMANDS\u003dfalse\n-B\n-n\njvmArgs : \n\n",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "done executing ndkBuild",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "write build output /home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a/build_output.txt",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "parse and convert ndk-build output to build configuration JSON",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "found application make file /home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Application.mk",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "write command file /home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a/build_command.txt",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
     "tag": "debug|armeabi-v7a"
   },
   {
     "level": "INFO",
     "message": "JSON generation completed without problems",
-    "file": "/home/mijotchi/AndroidStudioProjects/aapt-10.0-release/app/jni/Android.mk",
+    "file": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
     "tag": "debug|armeabi-v7a"
   }
 ]

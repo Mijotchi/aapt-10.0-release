@@ -3,10 +3,14 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class MainActivity extends Activity {
+import androidx.annotation.Nullable;
+
+public class Main extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+
 }
