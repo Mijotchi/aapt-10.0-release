@@ -1,0 +1,128 @@
+{
+  "abi": "ARMEABI_V7A",
+  "abiPlatformVersion": 21,
+  "buildSettings": {
+    "environmentVariables": []
+  },
+  "cxxBuildFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a",
+  "info": {
+    "abi": "ARMEABI_V7A",
+    "bitness": 32,
+    "deprecated": false,
+    "default": true
+  },
+  "originalCxxBuildFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/armeabi-v7a",
+  "variant": {
+    "buildSystemArgumentList": [],
+    "buildTargetSet": [],
+    "cFlagsList": [],
+    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
+    "cppFlagsList": [],
+    "isDebuggableEnabled": true,
+    "module": {
+      "buildSystem": "NDK_BUILD",
+      "cmakeToolchainFile": "/home/mijotchi/Android/Sdk/ndk/21.0.6113669/build/cmake/android.toolchain.cmake",
+      "cxxFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx",
+      "gradleModulePathName": ":app",
+      "intermediatesFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build/intermediates",
+      "makeFile": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/Android.mk",
+      "moduleBuildFile": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build.gradle",
+      "moduleRootFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app",
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkFolder": "/home/mijotchi/Android/Sdk/ndk/21.0.6113669",
+      "ndkMetaAbiList": [
+        {
+          "abi": "ARMEABI_V7A",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "ARM64_V8A",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86_64",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        }
+      ],
+      "ndkMetaPlatforms": {
+        "min": 16,
+        "max": 29,
+        "aliases": {
+          "20": 19,
+          "25": 24,
+          "J": 16,
+          "J-MR1": 17,
+          "J-MR2": 18,
+          "K": 19,
+          "L": 21,
+          "L-MR1": 22,
+          "M": 23,
+          "N": 24,
+          "N-MR1": 24,
+          "O": 26,
+          "O-MR1": 27,
+          "P": 28,
+          "Q": 29
+        }
+      },
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultStl": "SYSTEM",
+      "ndkVersion": "21.0.6113669",
+      "project": {
+        "compilerSettingsCacheFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/.cxx",
+        "cxxFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/.cxx",
+        "isBuildOnlyTargetAbiEnabled": true,
+        "isCmakeBuildCohabitationEnabled": false,
+        "isNativeCompilerSettingsCacheEnabled": false,
+        "rootBuildGradleFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2",
+        "sdkFolder": "/home/mijotchi/Android/Sdk",
+        "isPrefabEnabled": false
+      },
+      "splitsAbiFilterSet": [],
+      "stlSharedObjectMap": {
+        "LIBCXX_SHARED": {
+          "ARMEABI_V7A": "/home/mijotchi/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
+          "ARM64_V8A": "/home/mijotchi/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
+          "X86": "/home/mijotchi/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
+          "X86_64": "/home/mijotchi/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+        },
+        "LIBCXX_STATIC": {},
+        "NONE": {},
+        "SYSTEM": {}
+      }
+    },
+    "objFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/build/intermediates/ndkBuild/debug/obj/local",
+    "variantName": "debug",
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "prefabDirectory": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/prefab",
+    "prefabPackageDirectoryList": []
+  },
+  "prefabFolder": "/home/mijotchi/AndroidStudioProjects/MyApplication2/app/.cxx/ndkBuild/debug/prefab/armeabi-v7a"
+}

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-aapt2 compile -o compiled.flata --dir res
-aapt2 link -o styles.apk --manifest AndroidManifest.xml compiled.flata
