@@ -20,6 +20,10 @@
 
 #include <algorithm>
 
+// ============  Res Obfuscation begin ============
+#include <map>
+// ============  Res Obfuscation end ============
+
 // STATUST: mingw does seem to redefine UNKNOWN_ERROR from our enum value, so a cast is necessary.
 
 #if !defined(_WIN32)
@@ -214,7 +218,8 @@ bool isValidResourceType(const String8& type)
         || type == "transition" || type == "font"
         || type == "drawable" || type == "layout"
         || type == "values" || type == "xml" || type == "raw"
-        || type == "color" || type == "menu" || type == "mipmap";
+        || type == "color" || type == "menu" || type == "mipmap"
+        || type == "navigation";
 }
 
 static status_t parsePackage(Bundle* bundle, const sp<AaptAssets>& assets,
@@ -290,6 +295,88 @@ static status_t parsePackage(Bundle* bundle, const sp<AaptAssets>& assets,
 // ==========================================================================
 // ==========================================================================
 
+// ============  Res Obfuscation begin ============
+
+// Set to true for noisy debug output.
+static const bool kIsResObfDebug = true;
+// Res Obfuscation switch
+static const bool kIsResObfEnable = true;
+
+// resource path description
+class ResPathDesc
+{
+public:
+    int size;
+    String8 path;
+};
+
+static std::map<String8, ResPathDesc> sMap;
+
+// obtain file extension name
+String8 parseExtensionName(const String8& leaf)
+{
+    const char* firstDot = strchr(leaf.string(), '.');
+
+    if (firstDot) {
+        return String8(firstDot);
+    } else {
+        return String8("");
+    }
+}
+
+// index to path, eg: 0->a, 1->b
+void index2path(String8& sb, int index) {
+    int r = index / 37;
+    if (r > 0) {
+        index2path(sb, r - 1);
+    }
+    int offset = index % 37;
+    if (offset < 10) {
+        offset = offset + 48;
+    } else if (offset == 10) {
+        offset = 95;
+    } else {
+        offset = offset + 86;
+    }
+    char c[1] = {(char) offset};
+    sb.append(c, 1);
+}
+
+// originalPath -> obfuscationPath
+String8 getObfuscationPath(String8 originalPath) {
+    String8 obfuscationPath("assets/");
+    String8 originalPathDir = originalPath.getPathDir();
+
+    int curIndex;
+    std::map<String8, ResPathDesc>::iterator item = sMap.find(originalPathDir);
+    if (item != sMap.end()) {
+        ResPathDesc& desc = item->second;
+        obfuscationPath = desc.path;
+        curIndex = desc.size++;
+    } else {
+        index2path(obfuscationPath, sMap.size());
+        ResPathDesc desc;
+        desc.size = 0;
+        desc.path = obfuscationPath;
+        curIndex = desc.size++;
+        sMap[originalPathDir] = desc;
+    }
+    obfuscationPath.append("/");
+    index2path(obfuscationPath, curIndex);
+    obfuscationPath.append(parseExtensionName(originalPath));
+
+    if (kIsResObfDebug) {
+        fprintf(stderr, "[RESOBF] original: %s, obfuscation: %s \n"
+                , originalPath.string()
+                , obfuscationPath.string()
+                /*, parseExtensionName(originalPath).string()
+                , originalPath.getPathDir().string()*/);
+    }
+    return obfuscationPath;
+}
+// ============  Res Obfuscation end ============
+
+
 static status_t makeFileResources(Bundle* bundle, const sp<AaptAssets>& assets,
                                   ResourceTable* table,
                                   const sp<ResourceTypeSet>& set,
@@ -322,17 +409,24 @@ static status_t makeFileResources(Bundle* bundle, const sp<AaptAssets>& assets,
         }
         String8 resPath = it.getPath();
         resPath.convertToResPath();
+
+        // ============  Res Obfuscation begin ============
+        String8 obfuscationPath = kIsResObfEnable ? getObfuscationPath(resPath) : resPath;
+        // ============  Res Obfuscation end ============
+
         status_t result = table->addEntry(SourcePos(it.getPath(), 0),
                         String16(assets->getPackage()),
                         type16,
                         baseName,
-                        String16(resPath),
+              // ============  Res Obfuscation begin ============
+                        String16(obfuscationPath),
+              // ============  Res Obfuscation end ============
                         NULL,
                         &it.getParams());
         if (result != NO_ERROR) {
             hasErrors = true;
         } else {
-            assets->addResource(it.getLeafName(), resPath, it.getFile(), type8);
+            assets->addResource(it.getLeafName(), obfuscationPath, it.getFile(), type8);
         }
     }
 
@@ -1330,6 +1424,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets, sp<ApkBuil
     sp<ResourceTypeSet> menus;
     sp<ResourceTypeSet> mipmaps;
     sp<ResourceTypeSet> fonts;
+    sp<ResourceTypeSet> navigations;
 
     ASSIGN_IT(drawable);
     ASSIGN_IT(layout);
@@ -1343,6 +1438,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets, sp<ApkBuil
     ASSIGN_IT(menu);
     ASSIGN_IT(mipmap);
     ASSIGN_IT(font);
+    ASSIGN_IT(navigation);
 
     assets->setResources(resources);
     // now go through any resource overlays and collect their files
@@ -1366,7 +1462,8 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets, sp<ApkBuil
             !applyFileOverlay(bundle, assets, &colors, "color") ||
             !applyFileOverlay(bundle, assets, &menus, "menu") ||
             !applyFileOverlay(bundle, assets, &fonts, "font") ||
-            !applyFileOverlay(bundle, assets, &mipmaps, "mipmap")) {
+            !applyFileOverlay(bundle, assets, &mipmaps, "mipmap") ||
+            !applyFileOverlay(bundle, assets, &navigations, "navigation")) {
         return UNKNOWN_ERROR;
     }
 
@@ -1491,6 +1588,14 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets, sp<ApkBuil
             hasErrors = true;
         }
     }
+
+    if (navigations != NULL) {
+        err = makeFileResources(bundle, assets, &table, navigations, "navigation");
+        if (err != NO_ERROR) {
+            hasErrors = true;
+        }
+    }
+
 
     if (hasErrors) {
         return UNKNOWN_ERROR;
@@ -1666,6 +1771,27 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets, sp<ApkBuil
             String8 src = it.getFile()->getPrintableSource();
             err = compileXmlFile(bundle, assets, String16(it.getBaseName()),
                     it.getFile(), &table, xmlFlags);
+            if (err == NO_ERROR && it.getFile()->hasData()) {
+                ResXMLTree block;
+                block.setTo(it.getFile()->getData(), it.getFile()->getSize(), true);
+                checkForIds(src, block);
+            } else {
+                hasErrors = true;
+            }
+        }
+
+        if (err < NO_ERROR) {
+            hasErrors = true;
+        }
+        err = NO_ERROR;
+    }
+
+    if (navigations != NULL) {
+        ResourceDirIterator it(navigations, String8("navigation"));
+        while ((err=it.next()) == NO_ERROR) {
+            String8 src = it.getFile()->getPrintableSource();
+            err = compileXmlFile(bundle, assets, String16(it.getBaseName()),
+                                 it.getFile(), &table, xmlFlags);
             if (err == NO_ERROR && it.getFile()->hasData()) {
                 ResXMLTree block;
                 block.setTo(it.getFile()->getData(), it.getFile()->getSize(), true);
@@ -3260,6 +3386,9 @@ writeProguardForLayouts(ProguardKeepSet* keep, const sp<AaptAssets>& assets)
             tagAttrPairs = &kXmlTagAttrPairs;
         } else if ((dirName == String8("menu")) || (strncmp(dirName.string(), "menu-", 5) == 0)) {
             startTags.add(String8("menu"));
+            tagAttrPairs = NULL;
+        } else if ((dirName == String8("navigation")) || (strncmp(dirName.string(), "navigation-", 5) == 0)) {
+            startTags.add(String8("navigation"));
             tagAttrPairs = NULL;
         } else if (dirName == kTransition || (strncmp(dirName.string(), kTransitionPrefix.string(),
                         kTransitionPrefix.size()) == 0)) {
