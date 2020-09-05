@@ -1,4 +1,0 @@
-/home/mijotchi/AndroidStudioProjects/MyApplication2/app/jni/liblog/log.cpp:12:32: warning: function declared 'noreturn' should not return [-Winvalid-noreturn]
-                          ...){}
-                               ^
-1 warning generated.

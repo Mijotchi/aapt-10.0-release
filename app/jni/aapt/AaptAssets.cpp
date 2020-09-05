@@ -58,7 +58,7 @@ static bool validateFileName(const char* fileName)
 
 // The default to use if no other ignore pattern is defined.
 const char * const gDefaultIgnoreAssets =
-    "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~";
+        "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~";
 // The ignore pattern that can be passed via --ignore-assets in Main.cpp
 const char * gUserIgnoreAssets = NULL;
 
@@ -103,8 +103,8 @@ static bool isHidden(const char *root, const char *path)
 
     // Note: we don't have strtok_r under mingw.
     for(char *token = strtok(patterns, delim);
-            !ignore && token != NULL;
-            token = strtok(NULL, delim)) {
+        !ignore && token != NULL;
+        token = strtok(NULL, delim)) {
         chatty = token[0] != '!';
         if (!chatty) token++; // skip !
         if (strncasecmp(token, "<dir>" , 5) == 0) {
@@ -151,127 +151,127 @@ static bool isHidden(const char *root, const char *path)
 
 /* static */
 inline bool isAlpha(const String8& string) {
-     const size_t length = string.length();
-     for (size_t i = 0; i < length; ++i) {
-          if (!isalpha(string[i])) {
-              return false;
-          }
-     }
+    const size_t length = string.length();
+    for (size_t i = 0; i < length; ++i) {
+        if (!isalpha(string[i])) {
+            return false;
+        }
+    }
 
-     return true;
+    return true;
 }
 
 /* static */
 inline bool isNumber(const String8& string) {
-     const size_t length = string.length();
-     for (size_t i = 0; i < length; ++i) {
-          if (!isdigit(string[i])) {
-              return false;
-          }
-     }
+    const size_t length = string.length();
+    for (size_t i = 0; i < length; ++i) {
+        if (!isdigit(string[i])) {
+            return false;
+        }
+    }
 
-     return true;
+    return true;
 }
 
 void AaptLocaleValue::setLanguage(const char* languageChars) {
-     size_t i = 0;
-     while ((*languageChars) != '\0' && i < sizeof(language)/sizeof(language[0])) {
-          language[i++] = tolower(*languageChars);
-          languageChars++;
-     }
+    size_t i = 0;
+    while ((*languageChars) != '\0' && i < sizeof(language)/sizeof(language[0])) {
+        language[i++] = tolower(*languageChars);
+        languageChars++;
+    }
 }
 
 void AaptLocaleValue::setRegion(const char* regionChars) {
     size_t i = 0;
     while ((*regionChars) != '\0' && i < sizeof(region)/sizeof(region[0])) {
-         region[i++] = toupper(*regionChars);
-         regionChars++;
+        region[i++] = toupper(*regionChars);
+        regionChars++;
     }
 }
 
 void AaptLocaleValue::setScript(const char* scriptChars) {
     size_t i = 0;
     while ((*scriptChars) != '\0' && i < sizeof(script)/sizeof(script[0])) {
-         if (i == 0) {
-             script[i++] = toupper(*scriptChars);
-         } else {
-             script[i++] = tolower(*scriptChars);
-         }
-         scriptChars++;
+        if (i == 0) {
+            script[i++] = toupper(*scriptChars);
+        } else {
+            script[i++] = tolower(*scriptChars);
+        }
+        scriptChars++;
     }
 }
 
 void AaptLocaleValue::setVariant(const char* variantChars) {
-     size_t i = 0;
-     while ((*variantChars) != '\0' && i < sizeof(variant)/sizeof(variant[0])) {
-          variant[i++] = *variantChars;
-          variantChars++;
-     }
+    size_t i = 0;
+    while ((*variantChars) != '\0' && i < sizeof(variant)/sizeof(variant[0])) {
+        variant[i++] = *variantChars;
+        variantChars++;
+    }
 }
 
 bool AaptLocaleValue::initFromFilterString(const String8& str) {
-     // A locale (as specified in the filter) is an underscore separated name such
-     // as "en_US", "en_Latn_US", or "en_US_POSIX".
-     Vector<String8> parts = AaptUtil::splitAndLowerCase(str, '_');
+    // A locale (as specified in the filter) is an underscore separated name such
+    // as "en_US", "en_Latn_US", or "en_US_POSIX".
+    Vector<String8> parts = AaptUtil::splitAndLowerCase(str, '_');
 
-     const int numTags = parts.size();
-     bool valid = false;
-     if (numTags >= 1) {
-         const String8& lang = parts[0];
-         if (isAlpha(lang) && (lang.length() == 2 || lang.length() == 3)) {
-             setLanguage(lang.string());
-             valid = true;
-         }
-     }
+    const int numTags = parts.size();
+    bool valid = false;
+    if (numTags >= 1) {
+        const String8& lang = parts[0];
+        if (isAlpha(lang) && (lang.length() == 2 || lang.length() == 3)) {
+            setLanguage(lang.string());
+            valid = true;
+        }
+    }
 
-     if (!valid || numTags == 1) {
-         return valid;
-     }
+    if (!valid || numTags == 1) {
+        return valid;
+    }
 
-     // At this point, valid == true && numTags > 1.
-     const String8& part2 = parts[1];
-     if ((part2.length() == 2 && isAlpha(part2)) ||
-         (part2.length() == 3 && isNumber(part2))) {
-         setRegion(part2.string());
-     } else if (part2.length() == 4 && isAlpha(part2)) {
-         setScript(part2.string());
-     } else if (part2.length() >= 4 && part2.length() <= 8) {
-         setVariant(part2.string());
-     } else {
-         valid = false;
-     }
+    // At this point, valid == true && numTags > 1.
+    const String8& part2 = parts[1];
+    if ((part2.length() == 2 && isAlpha(part2)) ||
+        (part2.length() == 3 && isNumber(part2))) {
+        setRegion(part2.string());
+    } else if (part2.length() == 4 && isAlpha(part2)) {
+        setScript(part2.string());
+    } else if (part2.length() >= 4 && part2.length() <= 8) {
+        setVariant(part2.string());
+    } else {
+        valid = false;
+    }
 
-     if (!valid || numTags == 2) {
-         return valid;
-     }
+    if (!valid || numTags == 2) {
+        return valid;
+    }
 
-     // At this point, valid == true && numTags > 1.
-     const String8& part3 = parts[2];
-     if (((part3.length() == 2 && isAlpha(part3)) ||
+    // At this point, valid == true && numTags > 1.
+    const String8& part3 = parts[2];
+    if (((part3.length() == 2 && isAlpha(part3)) ||
          (part3.length() == 3 && isNumber(part3))) && script[0]) {
-         setRegion(part3.string());
-     } else if (part3.length() >= 4 && part3.length() <= 8) {
-         setVariant(part3.string());
-     } else {
-         valid = false;
-     }
+        setRegion(part3.string());
+    } else if (part3.length() >= 4 && part3.length() <= 8) {
+        setVariant(part3.string());
+    } else {
+        valid = false;
+    }
 
-     if (!valid || numTags == 3) {
-         return valid;
-     }
+    if (!valid || numTags == 3) {
+        return valid;
+    }
 
-     const String8& part4 = parts[3];
-     if (part4.length() >= 4 && part4.length() <= 8) {
-         setVariant(part4.string());
-     } else {
-         valid = false;
-     }
+    const String8& part4 = parts[3];
+    if (part4.length() >= 4 && part4.length() <= 8) {
+        setVariant(part4.string());
+    } else {
+        valid = false;
+    }
 
-     if (!valid || numTags > 4) {
-         return false;
-     }
+    if (!valid || numTags > 4) {
+        return false;
+    }
 
-     return true;
+    return true;
 }
 
 int AaptLocaleValue::initFromDirName(const Vector<String8>& parts, const int startIndex) {
@@ -350,7 +350,7 @@ int AaptLocaleValue::initFromDirName(const Vector<String8>& parts, const int sta
         return ++currentIndex;
     } else {
         if ((part.length() == 2 || part.length() == 3)
-               && isAlpha(part) && strcmp("car", part.string())) {
+            && isAlpha(part) && strcmp("car", part.string())) {
             setLanguage(part);
             if (++currentIndex == size) {
                 return size;
@@ -554,7 +554,7 @@ status_t AaptGroup::addFile(const sp<AaptFile>& file, const bool overwriteDuplic
 
 void AaptGroup::removeFile(size_t index)
 {
-	mFiles.removeItemsAt(index);
+    mFiles.removeItemsAt(index);
 }
 
 void AaptGroup::print(const String8& prefix) const
@@ -567,10 +567,10 @@ void AaptGroup::print(const String8& prefix) const
         const AaptGroupEntry& e = file->getGroupEntry();
         if (file->hasData()) {
             printf("%s  Gen: (%s) %d bytes\n", prefix.string(), e.toDirName(String8()).string(),
-                    (int)file->getSize());
+                   (int)file->getSize());
         } else {
             printf("%s  Src: (%s) %s\n", prefix.string(), e.toDirName(String8()).string(),
-                    file->getPrintableSource().string());
+                   file->getPrintableSource().string());
         }
         //printf("%s  File Group Entry: %s\n", prefix.string(),
         //        file->getGroupEntry().toDirName(String8()).string());
@@ -641,7 +641,7 @@ void AaptDir::removeDir(const String8& name)
 }
 
 status_t AaptDir::addLeafFile(const String8& leafName, const sp<AaptFile>& file,
-        const bool overwrite)
+                              const bool overwrite)
 {
     sp<AaptGroup> group;
     if (mFiles.indexOfKey(leafName) >= 0) {
@@ -655,8 +655,8 @@ status_t AaptDir::addLeafFile(const String8& leafName, const sp<AaptFile>& file,
 }
 
 ssize_t AaptDir::slurpFullTree(Bundle* bundle, const String8& srcDir,
-                            const AaptGroupEntry& kind, const String8& resType,
-                            sp<FilePathStore>& fullResPaths, const bool overwrite)
+                               const AaptGroupEntry& kind, const String8& resType,
+                               sp<FilePathStore>& fullResPaths, const bool overwrite)
 {
     Vector<String8> fileNames;
     {
@@ -883,10 +883,10 @@ status_t AaptSymbols::applyJavaSymbols(const sp<AaptSymbols>& javaSymbols)
 // =========================================================================
 
 AaptAssets::AaptAssets()
-    : AaptDir(String8(), String8()),
-      mHavePrivateSymbols(false),
-      mChanged(false), mHaveIncludedAssets(false),
-      mRes(NULL) {}
+        : AaptDir(String8(), String8()),
+          mHavePrivateSymbols(false),
+          mChanged(false), mHaveIncludedAssets(false),
+          mRes(NULL) {}
 
 const SortedVector<AaptGroupEntry>& AaptAssets::getGroupEntries() const {
     if (mChanged) {
@@ -954,7 +954,7 @@ sp<AaptFile> AaptAssets::addFile(
 }
 
 void AaptAssets::addResource(const String8& leafName, const String8& path,
-                const sp<AaptFile>& file, const String8& resType)
+                             const sp<AaptFile>& file, const String8& resType)
 {
     sp<AaptDir> res = AaptDir::makeDir(kResString);
     String8 dirname = file->getGroupEntry().toDirName(resType);
@@ -1044,7 +1044,7 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
                 }
                 count = current->slurpResourceTree(bundle, String8(res));
                 if (i > 0 && count > 0) {
-                  count = current->filter(bundle);
+                    count = current->filter(bundle);
                 }
 
                 if (count < 0) {
@@ -1058,7 +1058,7 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
                 return UNKNOWN_ERROR;
             }
         }
-        
+
     }
     /*
      * Now do any additional raw files.
@@ -1111,15 +1111,15 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
         goto bail;
     }
 
-bail:
+    bail:
     return totalCount;
 }
 
 ssize_t AaptAssets::slurpFullTree(Bundle* bundle, const String8& srcDir,
-                                    const AaptGroupEntry& kind,
-                                    const String8& resType,
-                                    sp<FilePathStore>& fullResPaths,
-                                    const bool overwrite)
+                                  const AaptGroupEntry& kind,
+                                  const String8& resType,
+                                  sp<FilePathStore>& fullResPaths,
+                                  const bool overwrite)
 {
     ssize_t res = AaptDir::slurpFullTree(bundle, srcDir, kind, resType, fullResPaths, overwrite);
     if (res > 0) {
@@ -1173,8 +1173,8 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
             const char *verString = group.getVersionString().string();
             int dirVersionInt = atoi(verString + 1); // skip 'v' in version name
             if (dirVersionInt > maxResInt) {
-              fprintf(stderr, "max res %d, skipping %s\n", maxResInt, entry->d_name);
-              continue;
+                fprintf(stderr, "max res %d, skipping %s\n", maxResInt, entry->d_name);
+                continue;
             }
         }
 
@@ -1183,7 +1183,7 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
         if (type == kFileTypeDirectory) {
             sp<AaptDir> dir = makeDir(resType);
             ssize_t res = dir->slurpFullTree(bundle, subdirName, group,
-                                                resType, mFullResPaths);
+                                             resType, mFullResPaths);
             if (res < 0) {
                 count = res;
                 goto bail;
@@ -1207,7 +1207,7 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
         }
     }
 
-bail:
+    bail:
     closedir(dir);
     dir = NULL;
 
@@ -1303,7 +1303,7 @@ AaptAssets::slurpResourceZip(Bundle* /* bundle */, const char* filename)
         count++;
     }
 
-bail:
+    bail:
     delete zip;
     return count;
 }
@@ -1334,11 +1334,11 @@ status_t AaptAssets::filter(Bundle* bundle)
     if (bundle->getVerbose()) {
         if (!reqFilter->isEmpty()) {
             printf("Applying required filter: %s\n",
-                    bundle->getConfigurations().string());
+                   bundle->getConfigurations().string());
         }
         if (preferredDensity > 0) {
             printf("Applying preferred density filter: %s\n",
-                    bundle->getPreferredDensity().string());
+                   bundle->getPreferredDensity().string());
         }
     }
 
@@ -1387,7 +1387,7 @@ status_t AaptAssets::filter(Bundle* bundle)
                 if (!reqFilter->match(config)) {
                     if (bundle->getVerbose()) {
                         printf("Pruning unneeded resource: %s\n",
-                                file->getPrintableSource().string());
+                               file->getPrintableSource().string());
                     }
                     grp->removeFile(k);
                     k--;
@@ -1437,13 +1437,13 @@ status_t AaptAssets::filter(Bundle* bundle)
                         if (AaptConfig::isSameExcept(config, mconfig, ResTable_config::CONFIG_DENSITY)) {
                             // See if there is a better density resource
                             if (mconfig.density < bestDensity &&
-                                    mconfig.density >= preferredDensity &&
-                                    bestDensity > preferredDensity) {
+                                mconfig.density >= preferredDensity &&
+                                bestDensity > preferredDensity) {
                                 // This density is our preferred density, or between our best density and
                                 // the preferred density, therefore it is better.
                                 bestDensity = mconfig.density;
                             } else if (mconfig.density > bestDensity &&
-                                    bestDensity < preferredDensity) {
+                                       bestDensity < preferredDensity) {
                                 // This density is better than our best density and
                                 // our best density was smaller than our preferred
                                 // density, so it is better.
@@ -1455,7 +1455,7 @@ status_t AaptAssets::filter(Bundle* bundle)
                     if (bestDensity != config.density) {
                         if (bundle->getVerbose()) {
                             printf("Pruning unneeded resource: %s\n",
-                                    file->getPrintableSource().string());
+                                   file->getPrintableSource().string());
                         }
                         grp->removeFile(k);
                         k--;
@@ -1545,7 +1545,7 @@ status_t AaptAssets::buildIncludedResources(Bundle* bundle)
     if (!featureOfBase.isEmpty()) {
         if (bundle->getVerbose()) {
             printf("Including base feature resources from package: %s\n",
-                    featureOfBase.string());
+                   featureOfBase.string());
         }
 
         if (!mIncludedAssets.addAssetPath(featureOfBase, NULL)) {
@@ -1588,7 +1588,7 @@ void AaptAssets::print(const String8& prefix) const
     for (size_t i=0; i<N; i++) {
         String8 cname = mGroupEntries.itemAt(i).toDirName(String8());
         printf("%s %s\n", prefix.string(),
-                cname != "" ? cname.string() : "(default)");
+               cname != "" ? cname.string() : "(default)");
     }
 
     printf("\n%sFiles:\n", prefix.string());
@@ -1621,16 +1621,16 @@ bool
 valid_symbol_name(const String8& symbol)
 {
     static char const * const KEYWORDS[] = {
-        "abstract", "assert", "boolean", "break",
-        "byte", "case", "catch", "char", "class", "const", "continue",
-        "default", "do", "double", "else", "enum", "extends", "final",
-        "finally", "float", "for", "goto", "if", "implements", "import",
-        "instanceof", "int", "interface", "long", "native", "new", "package",
-        "private", "protected", "public", "return", "short", "static",
-        "strictfp", "super", "switch", "synchronized", "this", "throw",
-        "throws", "transient", "try", "void", "volatile", "while",
-        "true", "false", "null",
-        NULL
+            "abstract", "assert", "boolean", "break",
+            "byte", "case", "catch", "char", "class", "const", "continue",
+            "default", "do", "double", "else", "enum", "extends", "final",
+            "finally", "float", "for", "goto", "if", "implements", "import",
+            "instanceof", "int", "interface", "long", "native", "new", "package",
+            "private", "protected", "public", "return", "short", "static",
+            "strictfp", "super", "switch", "synchronized", "this", "throw",
+            "throws", "transient", "try", "void", "volatile", "while",
+            "true", "false", "null",
+            NULL
     };
     const char*const* k = KEYWORDS;
     const char*const s = symbol.string();

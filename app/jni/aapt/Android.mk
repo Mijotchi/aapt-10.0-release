@@ -57,7 +57,7 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := aapt
-LOCAL_CFLAGS := -DAAPT_VERSION=\"TimScriptov\"
+LOCAL_CFLAGS := -DAAPT_VERSION=\"YukoSky\"
 LOCAL_SRC_FILES := Main.cpp
 LOCAL_STATIC_LIBRARIES := aapt_static
 LOCAL_LDLIBS := -lz
